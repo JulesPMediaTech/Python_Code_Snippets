@@ -31,3 +31,18 @@ def singleton (class_instance):
             instances[class_instance] = class_instance(*args,**kwargs)
         return instances[class_instance]
     return get_instance
+
+import psutil
+import os
+def monitor_resources():
+    '''tool for CPU, Memory usage when running an app'''
+    process = psutil.Process(os.getpid())
+    print(f"CPU Usage: {process.cpu_percent()}%")
+    print(f"Memory Usage: {process.memory_info().rss / 1024 ** 2:.2f} MB")
+    root.after(5000, monitor_resources)  # Check every 5 seconds
+    # 'root' being the name of instance to measure eg:
+
+monitor_resources()
+root = mainloop()
+
+
